@@ -1,11 +1,32 @@
 Changes
 -------
 
-0.7.1 (not officially released)
+0.9.1
+
+- Fix unicode issue with redirect variables. (Issue #21)
+- Add redirect to previous impersonation screen. (Issue #17, Pull Request #17)
+- Django 1.8 compatibility. (Pull Request #19)
+
+0.9.0 (2014-09-30)
+
+- Split search query into terms. (Pull Request #15)
+- Edge case bug addressing different versions of Django in different environments. (Issue #15)
+- Moved LOGIN_URL to function to avoid circular import issues. (Pull Request #14)
+- Customize search fields and query type. (Issue #14, Pull Request #13)
+- Django 1.7 compat changes. (Refs Pull Request #16)
+
+0.8.1 (2013-11-09)
+
+- Store user ID for Django 1.6 serialization support. (Issue #12, Pull Request #11)
+- Updated Authors & Changelog
+- Updated tox config to include Django 1.6 environments
+
+0.8.0 (2013-08-24)
 
 - Added "impersonator" to request object. (Issue #5)
 - Ditched custom import method for django importlib. (Issue #6)
 - Updated Authors & Changelog
+- Added session_begin and session_end signals. (Issue #8, Pull Request #7)
 
 0.7.0 (2013-03-28)
 

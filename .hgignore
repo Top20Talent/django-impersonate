@@ -5,8 +5,10 @@ settings_local.py
 .*.swp
 **.pyc
 MANIFEST
-
+.idea
 
 syntax:regexp
 ^htmlcov$
 ^env$
+syntax: glob
+*.komodoproject

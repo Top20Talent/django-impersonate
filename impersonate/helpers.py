@@ -1,7 +1,6 @@
 import re
 from django.conf import settings
 from django.utils.safestring import mark_safe
-from django.utils.importlib import import_module
 from django.core.paginator import Paginator, EmptyPage
 
 try:
@@ -11,6 +10,11 @@ except ImportError:
     from django.contrib.auth.models import User
 else:
     User = get_user_model()
+
+try:
+    from importlib import import_module  # Python 2.7
+except ImportError:
+    from django.utils.importlib import import_module
 
 
 def get_redir_path(request=None):
@@ -25,7 +29,7 @@ def get_redir_path(request=None):
     return nextval or getattr(
         settings,
         'IMPERSONATE_REDIRECT_URL',
-        getattr(settings, 'LOGIN_REDIRECT_URL', '/'),
+        getattr(settings, 'LOGIN_REDIRECT_URL', u'/'),
     )
 
 
@@ -38,8 +42,8 @@ def get_redir_arg(request):
     if redirect_field_name:
         nextval = request.GET.get(redirect_field_name, None)
         if nextval:
-            return '?{0}={1}'.format(redirect_field_name, nextval)
-    return ''
+            return u'?{0}={1}'.format(redirect_field_name, nextval)
+    return u''
 
 
 def get_redir_field(request):
@@ -52,12 +56,12 @@ def get_redir_field(request):
         nextval = request.GET.get(redirect_field_name, None)
         if nextval:
             return mark_safe(
-                '<input type="hidden" name="{0}" value="{1}"/>'.format(
+                u'<input type="hidden" name="{0}" value="{1}"/>'.format(
                     redirect_field_name,
                     nextval,
                 )
             )
-    return ''
+    return u''
 
 
 def get_paginator(request, qs):
@@ -101,11 +105,17 @@ def check_allow_for_user(request, end_user):
     '''
     if check_allow_impersonate(request):
         # start user can impersonate
-        # Can impersonate anyone who's not a superuser and who is in your
-        # queryset of 'who i can impersonate'
+        # Can impersonate superusers if IMPERSONATE_ALLOW_SUPERUSER is True
+        # Can impersonate anyone who is in your queryset of 'who i can impersonate'.
+        allow_superusers = getattr(
+            settings,
+            'IMPERSONATE_ALLOW_SUPERUSER',
+            False,
+        )
         upk = end_user.pk
         return (
-            not end_user.is_superuser and
+            ((request.user.is_superuser and allow_superusers) or
+                not end_user.is_superuser) and
             users_impersonable(request).filter(pk=upk).exists()
         )
 

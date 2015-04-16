@@ -1,4 +1,4 @@
-from .helpers import check_allow_for_user, check_allow_for_uri
+from .helpers import check_allow_for_user, check_allow_for_uri, User
 
 
 class ImpersonateMiddleware(object):
@@ -8,7 +8,15 @@ class ImpersonateMiddleware(object):
 
         if request.user.is_authenticated() and \
            '_impersonate' in request.session:
-            new_user = request.session['_impersonate']
+            new_user_id = request.session['_impersonate']
+            if isinstance(new_user_id, User):
+                # Edge case for issue 15
+                new_user_id = new_user_id.id
+
+            try:
+                new_user = User.objects.get(id=new_user_id)
+            except User.DoesNotExist:
+                return
 
             if check_allow_for_user(request, new_user) and \
                check_allow_for_uri(request.path):
