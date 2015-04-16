@@ -1,20 +1,12 @@
+from django.conf import settings
 from django.db.models import Q
-from django.template import RequestContext
 from django.shortcuts import get_object_or_404, redirect, render
 from .decorators import allowed_user_required
 from .helpers import (
     get_redir_path, get_redir_arg, get_paginator, get_redir_field,
-    check_allow_for_user, users_impersonable
+    check_allow_for_user, users_impersonable, User
 )
 from .signals import session_begin, session_end
-
-try:
-    # Django 1.5 check
-    from django.contrib.auth import get_user_model
-except ImportError:
-    from django.contrib.auth.models import User
-else:
-    User = get_user_model()
 
 
 @allowed_user_required
@@ -25,10 +17,18 @@ def impersonate(request, uid):
 
         The middleware will then pick up on it and adjust the
         request object as needed.
+
+        Also store the user's 'starting'/'original' URL so
+        we can return them to it.
     '''
     new_user = get_object_or_404(User, pk=uid)
     if check_allow_for_user(request, new_user):
-        request.session['_impersonate'] = new_user
+        request.session['_impersonate'] = new_user.id
+        prev_path = request.META.get('HTTP_REFERER')
+        if prev_path:
+            request.session['_impersonate_prev_path'] = \
+                                request.build_absolute_uri(prev_path)
+
         request.session.modified = True  # Let's make sure...
         # can be used to hook up auditing of the session
         session_begin.send(
@@ -42,8 +42,11 @@ def impersonate(request, uid):
 
 def stop_impersonate(request):
     ''' Remove the impersonation object from the session
+        and ideally return the user to the original path
+        they were on.
     '''
     impersonating = request.session.pop('_impersonate', None)
+    original_path = request.session.pop('_impersonate_prev_path', None)
     if impersonating is not None:
         request.session.modified = True
         session_end.send(
@@ -52,7 +55,9 @@ def stop_impersonate(request):
             impersonating=impersonating,
             request=request
         )
-    return redirect(get_redir_path(request))
+
+    dest = original_path or get_redir_path(request)
+    return redirect(dest)
 
 
 @allowed_user_required
@@ -92,13 +97,25 @@ def search_users(request, template):
           * redirect_field - hidden input field with redirect argument,
                               put this inside search form
     '''
-    query = request.GET.get('q', '')
-    search_q = Q(username__icontains=query) | \
-               Q(first_name__icontains=query) | \
-               Q(last_name__icontains=query) | \
-               Q(email__icontains=query)
-    users = users_impersonable(request)
+    query = request.GET.get('q', u'')
 
+    # get username field
+    username_field = getattr(User, 'USERNAME_FIELD', 'username')
+
+    # define search fields and lookup type
+    search_fields = set(getattr(settings, 'IMPERSONATE_SEARCH_FIELDS',
+                         [username_field, 'first_name', 'last_name', 'email']))
+    lookup_type = getattr(settings, 'IMPERSONATE_LOOKUP_TYPE', 'icontains')
+
+    # prepare kwargs
+    search_q = Q()
+    for term in query.split():
+        sub_q = Q()
+        for search_field in search_fields:
+            sub_q |= Q(**{'{0}__{1}'.format(search_field, lookup_type): term})
+        search_q &= sub_q
+
+    users = users_impersonable(request)
     users = users.filter(search_q)
     paginator, page, page_number = get_paginator(request, users)
 
