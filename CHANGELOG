@@ -1,6 +1,10 @@
 Changes
 -------
 
+0.9.3 - DEV
+
+- Use full URL in user listing pages. (Pull Request #21)
+
 0.9.2 (2015-08-24)
 
 - Add http refer specific setting because it broke prevoius usage. (Issue #24, Refs Issue #17)
