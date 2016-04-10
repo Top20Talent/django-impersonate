@@ -1,0 +1,4 @@
+include BSD-LICENSE
+include CHANGELOG
+include README.rst
+recursive-include impersonate/templates *
