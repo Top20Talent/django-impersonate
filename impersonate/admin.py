@@ -3,7 +3,7 @@ import logging
 from django.conf import settings
 from django.contrib import admin
 from django.urls import reverse
-
+from django.utils.translation import ugettext
 from .helpers import User
 from .models import ImpersonationLog, ImpersonateUser
 
@@ -132,12 +132,22 @@ class ImpersonationLogAdmin(admin.ModelAdmin):
 
 
 class ImpersonateUserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'impersonate_link')
+    list_display = ('username', 'impersonate')
+    search_fields = ('username',)
+    actions = None
 
-    def impersonate_link(self, obj):
-        return '<a href="{}" class="btn">Impersonate</a>'.format(reverse('impersonate-start', kwargs={'pk': obj.pk}))
+    list_display_links = None
 
-    impersonate_link.allow_tags = True
+    def has_add_permission(self, request):
+        return False
+
+    def impersonate(self, obj):
+        return '<a href="{}" class="btn white">{}</a>'.format(
+            reverse('impersonate-start', kwargs={'uid': obj.pk}),
+            ugettext('Impersonate')
+        )
+
+    impersonate.allow_tags = True
 
 
 admin.site.register(ImpersonationLog, ImpersonationLogAdmin)
