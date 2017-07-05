@@ -13,6 +13,8 @@ class ImpersonateUser(User):
 
     class Meta:
         proxy = True
+        verbose_name = _('Impersonate User')
+        verbose_name_plural = _('Impersonate User')
 
 
 class ImpersonationLog(models.Model):
@@ -58,8 +60,8 @@ class ImpersonationLog(models.Model):
     )
 
     class Meta:
-        verbose_name = _('ImpersonationLog')
-        verbose_name_plural = _('ImpersonationLogs')
+        verbose_name = _('Impersonation Log')
+        verbose_name_plural = _('Impersonation Logs')
 
     @property
     def duration(self):
