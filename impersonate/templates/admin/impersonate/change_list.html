@@ -1,21 +1,26 @@
 {% extends 'admin/change_list.html' %}
 {% load i18n %}
-{%  block main_content %}
-{% if request.user.impersonate_user %}
-<div class="row">
-    <div class="col m12">
-        <div class="right">
-            <div class="object-tools">
-                <ul>
-                    <li>
-                       <a href="{% url 'impersonate-stop' %}" class="btn"><i class="material-icons left">stop</i>{% trans 'Stop impersonating as' %} {{ request.user.impersonate_user }}</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-{% endif %}
+{%  block date_hierarchy %}
 {{ block.super }}
 
-{% endblock %}
+<div class="col m12">
+    <span class="card-title">{% trans 'Impersonating' %}</span>
+        <div class="section">
+        {% if request.user.impersonate_user %}
+            {% trans 'You are impersonating as ' %}
+        <a href="{% url 'admin:accounts_user_change' request.user.impersonate_user.id %}">
+            {{request.user.impersonate_user}}
+        </a>
+        {% else %}
+            {% trans 'You are not impostor at the moment' %}
+        {% endif %}
+        </div>
+        <div class="center">
+            {% if request.user.impersonate_user %}
+                <a href="{% url 'impersonate-stop' %}" class="btn  cyan darken-3">
+                    <i class="material-icons left">stop</i>{% trans 'Stop impersonating' %}
+                </a>
+            {% endif %}
+        </div>
+</div>
+{% endblock %}}
