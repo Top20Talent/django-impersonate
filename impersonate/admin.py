@@ -136,7 +136,7 @@ class ImpersonationLogAdmin(admin.ModelAdmin):
 
 class ImpersonateUserAdmin(admin.ModelAdmin):
     icon = '<i class="material-icons">transfer_within_a_station</i>'
-    list_display = ('username', 'impersonate')
+    list_display = ('username', 'is_staff', 'impersonate')
     search_fields = ('username',)
     actions = None
 
