@@ -2,6 +2,7 @@
 import logging
 from django.conf import settings
 from django.contrib import admin
+from django.urls import reverse
 
 from .helpers import User
 from .models import ImpersonationLog, ImpostorUser
@@ -128,5 +129,14 @@ class ImpersonationLogAdmin(admin.ModelAdmin):
         return friendly_name(obj.impersonating)
 
 
+class ImpersonateUserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'impersonate_link')
+
+    def impersonate_link(self, obj):
+        return '<a href="{}" class="btn">Impersonate</a>'.format(reverse('impersonate-start', kwargs={'pk': obj.pk}))
+
+    impersonate_link.allow_tags = True
+
+
 admin.site.register(ImpersonationLog, ImpersonationLogAdmin)
-admin.site.register(ImpostorUser)
+admin.site.register(ImpostorUser, ImpersonateUserAdmin)

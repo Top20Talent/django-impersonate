@@ -8,7 +8,8 @@ from django.conf import settings
 User = get_user_model()
 
 
-class ImpostorUser(User):
+class ImpersonateUser(User):
+
     class Meta:
         proxy = True
 
