@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib import admin
 
 from .helpers import User
-from .models import ImpersonationLog
+from .models import ImpersonationLog, ImpostorUser
 
 logger = logging.getLogger(__name__)
 
@@ -129,3 +129,4 @@ class ImpersonationLogAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ImpersonationLog, ImpersonationLogAdmin)
+admin.site.register(ImpostorUser)
