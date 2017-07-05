@@ -28,6 +28,16 @@ Enhancements:
 **NOTICE**
 Front end is designed for django-materialize admin layouts.
 
+Gather and compile messages(i18n):
+
+* Create environment `virtualenv -p python3 venv`
+* Activate environment `source venv/bin/activate`
+* Install django `pip install -r requirements.txt`
+* Gather messages `django-admin makemessages --ignore=venv/* --locale=zh_Hans`
+* Compile messages `django-admin compilemessages --locale=zh_Hans`
+* Push
+
+
 Dependencies
 ============
 
