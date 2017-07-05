@@ -13,6 +13,8 @@ class ImpersonateUser(User):
 
     class Meta:
         proxy = True
+        verbose_name = _('Impersonate User')
+        verbose_name_plural = _('Impersonate User')
 
 
 class ImpersonationLog(models.Model):

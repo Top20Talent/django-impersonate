@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-05 10:46+0300\n"
+"POT-Creation-Date: 2017-07-05 11:19+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,38 +17,81 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-#: impersonate/apps.py:8
+
+#: impersonate/admin.py:147 impersonate/apps.py:8
 msgid "Impersonate"
 msgstr "模仿"
 
-#: impersonate/models.py:24
+#: impersonate/models.py:16 impersonate/models.py:17
+msgid "Impersonate User"
+msgstr "模拟用户"
+
+#: impersonate/models.py:35
 msgid "Impersonator"
 msgstr "冒领"
 
-#: impersonate/models.py:31
+#: impersonate/models.py:42
 msgid "Impersonating"
 msgstr "冒充"
 
-#: impersonate/models.py:36
+#: impersonate/models.py:47
 msgid "Session Key"
 msgstr "会话密钥"
 
-#: impersonate/models.py:42
+#: impersonate/models.py:53
 msgid "Session Started At"
 msgstr "会议开始于"
 
-#: impersonate/models.py:48
+#: impersonate/models.py:59
 msgid "Session Ended At"
 msgstr "会议结束于"
 
-#: impersonate/models.py:52
+#: impersonate/models.py:63
 msgid "Impersonation Log"
 msgstr "假冒日志"
 
-#: impersonate/models.py:53
+#: impersonate/models.py:64
 msgid "Impersonation Logs"
 msgstr "假冒日志"
 
-#: impersonate/models.py:66
+#: impersonate/models.py:77
 msgid "Duration"
 msgstr "持续时间"
+
+#: impersonate/templates/impersonate/list_users.html:4
+msgid "Impersonate User List"
+msgstr "模拟用户列表"
+
+#: impersonate/templates/impersonate/list_users.html:13
+msgid "User List"
+msgstr "用户列表"
+
+#: impersonate/templates/impersonate/list_users.html:13
+msgid "page"
+msgstr "页"
+
+#: impersonate/templates/impersonate/list_users.html:23
+#: impersonate/templates/impersonate/search_users.html:29
+msgid "Previous Page"
+msgstr "上一页"
+
+#: impersonate/templates/impersonate/list_users.html:27
+#: impersonate/templates/impersonate/search_users.html:33
+msgid "Next Page"
+msgstr "下一页"
+
+#: impersonate/templates/impersonate/search_users.html:4
+msgid "Django Impersonate - Search Users"
+msgstr "Django模仿 - 搜索用户"
+
+#: impersonate/templates/impersonate/search_users.html:13
+msgid "Search Users"
+msgstr "搜索用户"
+
+#: impersonate/templates/impersonate/search_users.html:13
+msgid "Page"
+msgstr "页"
+
+#: impersonate/templates/impersonate/search_users.html:15
+msgid "Enter Search Query:"
+msgstr "输入搜索查询："
