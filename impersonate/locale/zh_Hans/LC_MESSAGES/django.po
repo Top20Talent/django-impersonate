@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-05 11:49+0300\n"
+"POT-Creation-Date: 2017-07-05 12:33+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: impersonate/admin.py:150 impersonate/admin.py:154 impersonate/apps.py:8
+#: impersonate/admin.py:154 impersonate/admin.py:158 impersonate/apps.py:10
 msgid "Impersonate"
 msgstr "模仿"
 
@@ -31,6 +31,7 @@ msgid "Impersonator"
 msgstr "冒领"
 
 #: impersonate/models.py:42
+#: impersonate/templates/admin/impersonate/change_list.html:7
 msgid "Impersonating"
 msgstr "冒充"
 
@@ -58,8 +59,16 @@ msgstr "假冒日志"
 msgid "Duration"
 msgstr "持续时间"
 
-#: impersonate/templates/admin/impersonate/change_list.html:11
-msgid "Stop impersonating as"
+#: impersonate/templates/admin/impersonate/change_list.html:10
+msgid "You are impersonating as "
+msgstr "你是假冒的"
+
+#: impersonate/templates/admin/impersonate/change_list.html:15
+msgid "You are not impostor at the moment"
+msgstr "你现在不是冒名顶替的人"
+
+#: impersonate/templates/admin/impersonate/change_list.html:21
+msgid "Stop impersonating"
 msgstr "停止冒充"
 
 #: impersonate/templates/impersonate/list_users.html:4
