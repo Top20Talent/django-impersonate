@@ -19,36 +19,36 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 #: impersonate/apps.py:8
 msgid "Impersonate"
-msgstr ""
+msgstr "模仿"
 
 #: impersonate/models.py:24
 msgid "Impersonator"
-msgstr ""
+msgstr "冒领"
 
 #: impersonate/models.py:31
 msgid "Impersonating"
-msgstr ""
+msgstr "冒充"
 
 #: impersonate/models.py:36
 msgid "Session Key"
-msgstr ""
+msgstr "会话密钥"
 
 #: impersonate/models.py:42
 msgid "Session Started At"
-msgstr ""
+msgstr "会议开始于"
 
 #: impersonate/models.py:48
 msgid "Session Ended At"
-msgstr ""
+msgstr "会议结束于"
 
 #: impersonate/models.py:52
-msgid "ImpersonationLog"
-msgstr ""
+msgid "Impersonation Log"
+msgstr "假冒日志"
 
 #: impersonate/models.py:53
-msgid "ImpersonationLogs"
-msgstr ""
+msgid "Impersonation Logs"
+msgstr "假冒日志"
 
 #: impersonate/models.py:66
 msgid "Duration"
-msgstr ""
+msgstr "持续时间"

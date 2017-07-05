@@ -58,8 +58,8 @@ class ImpersonationLog(models.Model):
     )
 
     class Meta:
-        verbose_name = _('ImpersonationLog')
-        verbose_name_plural = _('ImpersonationLogs')
+        verbose_name = _('Impersonation Log')
+        verbose_name_plural = _('Impersonation Logs')
 
     @property
     def duration(self):
