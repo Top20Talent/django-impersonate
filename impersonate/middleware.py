@@ -12,8 +12,7 @@ class ImpersonateMiddleware(MiddlewareMixin):
         request.user.is_impersonate = False
         request.impersonator = None
 
-        if request.user.is_authenticated() and \
-           '_impersonate' in request.session:
+        if request.user.is_authenticated() and '_impersonate' in request.session:
             new_user_id = request.session['_impersonate']
             if isinstance(new_user_id, User):
                 # Edge case for issue 15
@@ -23,11 +22,13 @@ class ImpersonateMiddleware(MiddlewareMixin):
                 new_user = User.objects.get(pk=new_user_id)
             except User.DoesNotExist:
                 return
+            if check_allow_for_user(request, new_user):
+                # We need this to determine if current user is impersonating even if on the current page he is not
+                request.user.impersonate_user = new_user
 
-            if check_allow_for_user(request, new_user) and \
-               check_allow_for_uri(request.path):
-                request.impersonator = request.user
-                request.user = new_user
-                request.user.is_impersonate = True
+                if check_allow_for_uri(request.path):
+                    request.impersonator = request.user
+                    request.user = new_user
+                    request.user.is_impersonate = True
 
         request.real_user = request.impersonator or request.user

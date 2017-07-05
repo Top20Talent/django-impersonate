@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import reverse
 from django.utils.translation import ugettext
-from .helpers import User
+from .helpers import User, users_impersonable
 from .models import ImpersonationLog, ImpersonateUser
 
 logger = logging.getLogger(__name__)
@@ -138,11 +138,14 @@ class ImpersonateUserAdmin(admin.ModelAdmin):
 
     list_display_links = None
 
+    def get_queryset(self, request):
+        return users_impersonable(request)
+
     def has_add_permission(self, request):
         return False
 
     def impersonate(self, obj):
-        return '<a href="{}" class="btn white">{}</a>'.format(
+        return '<a href="{}" class="btn grey lighten-3"><i class="material-icons left">play_arrow</i>{}</a>'.format(
             reverse('impersonate-start', kwargs={'uid': obj.pk}),
             ugettext('Impersonate')
         )

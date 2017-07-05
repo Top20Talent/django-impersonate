@@ -1,0 +1,21 @@
+{% extends 'admin/change_list.html' %}
+{% load i18n %}
+{%  block main_content %}
+{% if request.user.impersonate_user %}
+<div class="row">
+    <div class="col m12">
+        <div class="right">
+            <div class="object-tools">
+                <ul>
+                    <li>
+                       <a href="{% url 'impersonate-stop' %}" class="btn"><i class="material-icons left">stop</i>{% trans 'Stop impersonating as' %} {{ request.user.impersonate_user }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{{ block.super }}
+
+{% endblock %}
