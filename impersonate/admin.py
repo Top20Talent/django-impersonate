@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.urls import reverse
 
 from .helpers import User
-from .models import ImpersonationLog, ImpostorUser
+from .models import ImpersonationLog, ImpersonateUser
 
 logger = logging.getLogger(__name__)
 
@@ -141,4 +141,4 @@ class ImpersonateUserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ImpersonationLog, ImpersonationLogAdmin)
-admin.site.register(ImpostorUser, ImpersonateUserAdmin)
+admin.site.register(ImpersonateUser, ImpersonateUserAdmin)
