@@ -89,8 +89,9 @@ def users_impersonable(request):
             settings.IMPERSONATE_CUSTOM_USER_QUERYSET
         )
         return custom_queryset_func(request)
-    else:
-        return User.objects.all()
+    if not getattr(settings, 'IMPERSONATE_ALLOW_SUPERUSER', False):
+        return User.objects.filter(is_superuser=False)
+    return User.objects.all()
 
 
 def check_allow_for_user(request, end_user):
