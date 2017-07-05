@@ -1,31 +1,40 @@
-<html>
-<head>
-<title>Django Impersonate - Search Users</title>
-</head>
-<body>
-<h1>Search Users {% if query %}- Page {{ page_number }}{% endif %}</h1>
+{% extends 'admin/base.html' %}
+{% load i18n %}
+{% block title %}
+{% trans 'Django Impersonate - Search Users' %}
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col m12 l6">
+        <div class="card">
 
-<form action="{% url 'impersonate-search' %}" method="GET">
-Enter Search Query:<br />
-<input type="text" name="q" value="{% if query %}{{ query }}{% endif %}"><br />
-{{redirect_field}}
-<input type="submit" value="Search"><br />
-</form>
-{% if query and page.object_list %}
-  <ul>
-    {% for user in page.object_list %}
-      <li><a href="{% url 'impersonate-start' user.pk %}{{redirect}}">{{ user }}</a> - Impersonate</li>
-    {% endfor %}
-  </ul>
-{% endif %}
 
-{% if query and page.has_previous %}
-<a href="{% url 'impersonate-search' %}?page={{ page.previous_page_number }}&q={{ query|urlencode }}">Previous Page</a> &nbsp; 
-{% endif %}
+            <div class="card-content">
+                <span class="card-title">{% trans 'Search Users' %} {% if query %}- {% trans 'Page' %} {{ page_number }}{% endif %}</span>
+                <form action="{% url 'impersonate-search' %}" method="GET">
+                    {% trans 'Enter Search Query:' %}<br/>
+                    <input type="text" name="q" value="{% if query %}{{ query }}{% endif %}"><br/>
+                    {{redirect_field}}
+                    <input type="submit" value="Search" class="btn"><br/>
+                </form>
+                {% if query and page.object_list %}
+                <ul>
+                    {% for user in page.object_list %}
+                    <li><a href="{% url 'impersonate-start' user.pk %}{{redirect}}">{{ user }}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
 
-{% if query and page.has_next %}
-<a href="{% url 'impersonate-search' %}?page={{ page.next_page_number }}&q={{ query|urlencode }}">Next Page</a> &nbsp; 
-{% endif %}
+                {% if query and page.has_previous %}
+                <a href="{% url 'impersonate-search' %}?page={{ page.previous_page_number }}&q={{ query|urlencode }}">{% trans 'Previous Page' %}</a>
+                {% endif %}
 
-</body>
-</html>
+                {% if query and page.has_next %}
+                <a href="{% url 'impersonate-search' %}?page={{ page.next_page_number }}&q={{ query|urlencode }}">{% trans 'Next Page' %}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
