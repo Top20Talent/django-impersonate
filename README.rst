@@ -11,7 +11,7 @@ django-impersonate |nlshield|
 
 About fork
 ==========
-This fork introduce couple of fixes and enhancements for better user exigence.
+This fork introduce couple of fixes and enhancements for better user experience.
 
 Fixes:
 
