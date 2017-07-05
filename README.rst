@@ -8,6 +8,23 @@ django-impersonate |nlshield|
 :Version: 1.1
 :Author: Peter Sanchez (http://www.petersanchez.com)
 
+
+About fork
+==========
+This fork introduce couple of fixes and enhancements for better user exigence.
+Fixes:
+* User PK converted to string to fix crash with UUID pk
+
+Enhancements:
+* Added i18n
+* Added admin page with users list where user can start impersonating
+* Added button `stop impersonating` in admin
+* Even if current page is in ignore list you still can determine if user is impersonating on other pages
+* Added Chinese locale
+
+**NOTICE**
+Front end is designed for django-materialize admin layouts.
+
 Dependencies
 ============
 
