@@ -10,7 +10,7 @@
 
 
             <div class="card-content">
-                <span class="card-title">{% trans 'Search Users %} {% if query %}- {% trans 'Page' %} {{ page_number }}{% endif %}</span>
+                <span class="card-title">{% trans 'Search Users' %} {% if query %}- {% trans 'Page' %} {{ page_number }}{% endif %}</span>
                 <form action="{% url 'impersonate-search' %}" method="GET">
                     {% trans 'Enter Search Query:' %}<br/>
                     <input type="text" name="q" value="{% if query %}{{ query }}{% endif %}"><br/>
