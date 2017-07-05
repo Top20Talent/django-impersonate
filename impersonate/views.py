@@ -28,7 +28,7 @@ def impersonate(request, uid):
     '''
     new_user = get_object_or_404(User, pk=uid)
     if check_allow_for_user(request, new_user):
-        request.session['_impersonate'] = new_user.pk
+        request.session['_impersonate'] = str(new_user.pk)
         prev_path = request.META.get('HTTP_REFERER')
         if prev_path:
             request.session['_impersonate_prev_path'] = \
