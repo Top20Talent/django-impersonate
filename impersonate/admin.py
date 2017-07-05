@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import reverse
 from django.utils.translation import ugettext
+from django.utils.translation import ugettext_lazy as _
 from .helpers import User, users_impersonable
 from .models import ImpersonationLog, ImpersonateUser
 
@@ -102,6 +103,8 @@ class ImpersonatorFilter(admin.SimpleListFilter):
 
 
 class ImpersonationLogAdmin(admin.ModelAdmin):
+    icon = '<i class="material-icons">history</i>'
+
     list_display = (
         'impersonator',
         'impersonating',
@@ -132,6 +135,7 @@ class ImpersonationLogAdmin(admin.ModelAdmin):
 
 
 class ImpersonateUserAdmin(admin.ModelAdmin):
+    icon = '<i class="material-icons">transfer_within_a_station</i>'
     list_display = ('username', 'impersonate')
     search_fields = ('username',)
     actions = None
@@ -151,7 +155,7 @@ class ImpersonateUserAdmin(admin.ModelAdmin):
         )
 
     impersonate.allow_tags = True
-    impersonate.short_description = ugettext("Impersonate")
+    impersonate.short_description = _("Impersonate")
 
 
 admin.site.register(ImpersonationLog, ImpersonationLogAdmin)

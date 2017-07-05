@@ -74,4 +74,4 @@ class ImpersonationLog(models.Model):
                 self.session_ended_at - self.session_started_at,
             )
         return ''
-    _duration.short_description = _('Duration')
+    duration.fget.short_description = _('Duration')
