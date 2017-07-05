@@ -12,10 +12,13 @@ django-impersonate |nlshield|
 About fork
 ==========
 This fork introduce couple of fixes and enhancements for better user exigence.
+
 Fixes:
+
 * User PK converted to string to fix crash with UUID pk
 
 Enhancements:
+
 * Added i18n
 * Added admin page with users list where user can start impersonating
 * Added button `stop impersonating` in admin
