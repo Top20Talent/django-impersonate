@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-05 11:19+0300\n"
+"POT-Creation-Date: 2017-07-05 11:49+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: impersonate/admin.py:147 impersonate/apps.py:8
+#: impersonate/admin.py:150 impersonate/admin.py:154 impersonate/apps.py:8
 msgid "Impersonate"
 msgstr "模仿"
 
@@ -57,6 +57,10 @@ msgstr "假冒日志"
 #: impersonate/models.py:77
 msgid "Duration"
 msgstr "持续时间"
+
+#: impersonate/templates/admin/impersonate/change_list.html:11
+msgid "Stop impersonating as"
+msgstr "停止冒充"
 
 #: impersonate/templates/impersonate/list_users.html:4
 msgid "Impersonate User List"

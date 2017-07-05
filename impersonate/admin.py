@@ -151,6 +151,7 @@ class ImpersonateUserAdmin(admin.ModelAdmin):
         )
 
     impersonate.allow_tags = True
+    impersonate.short_description = ugettext("Impersonate")
 
 
 admin.site.register(ImpersonationLog, ImpersonationLogAdmin)
