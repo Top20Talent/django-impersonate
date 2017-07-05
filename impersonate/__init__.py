@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+default_app_config = 'impersonate.apps.AccountsConfig'
 VERSION = (1, 1, 0, 'final', 0)
 
 
