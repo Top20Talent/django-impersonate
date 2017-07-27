@@ -12,8 +12,6 @@ itself, in order to have the proper entries displayed in the admin.
 
 from __future__ import unicode_literals, absolute_import, division
 
-import sys
-
 from django.contrib.auth.management import _get_all_permissions
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
