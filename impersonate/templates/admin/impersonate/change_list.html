@@ -17,7 +17,7 @@
         </div>
         <div class="center">
             {% if request.user.impersonate_user %}
-                <a href="{% url 'impersonate-stop' %}" class="btn  cyan darken-3">
+                <a href="{% url 'impersonate-stop' %}" class="btn cyan darken-3">
                     <i class="material-icons left">stop</i>{% trans 'Stop impersonating' %}
                 </a>
             {% endif %}

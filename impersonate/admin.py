@@ -5,6 +5,8 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
+from rest_auth.utils import jwt_encode
+
 from .helpers import User, users_impersonable
 from .models import ImpersonationLog, ImpersonateUser
 
@@ -140,6 +142,9 @@ class ImpersonateUserAdmin(admin.ModelAdmin):
     search_fields = ('username',)
     actions = None
 
+    class Media:
+        js = ("admin/impersonate/change_form.js",)
+
     list_display_links = None
 
     def get_queryset(self, request):
@@ -149,10 +154,33 @@ class ImpersonateUserAdmin(admin.ModelAdmin):
         return False
 
     def impersonate(self, obj):
-        return '<a href="{}" class="btn grey lighten-3"><i class="material-icons left">play_arrow</i>{}</a>'.format(
-            reverse('impersonate-start', kwargs={'uid': obj.pk}),
-            ugettext('Impersonate')
-        )
+        status = None
+        if obj.account:
+            status = obj.account.status
+
+        return """<a href="{}"
+               data-email="{}",
+               data-pk="{}",
+               data-account="{}",
+               data-status="{}",
+               data-phone="{}",
+               data-first_name="{}",
+               data-last_name="{}"
+               data-token="{}"
+               class="btn grey lighten-3">
+               <i class="material-icons left">play_arrow</i>{}</a>""".format(
+                    reverse('impersonate-start', kwargs={'uid': obj.pk}),
+                    obj.email or '',
+                    obj.pk,
+                    obj.account or '',
+                    status or '',
+                    obj.phone or '',
+                    obj.first_name or '',
+                    obj.last_name or '',
+                    jwt_encode(obj),
+                    ugettext('Impersonate'),
+
+                )
 
     impersonate.allow_tags = True
     impersonate.short_description = _("Impersonate")
