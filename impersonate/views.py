@@ -27,7 +27,6 @@ def impersonate(request, uid):
         we can return them to it.
     '''
     new_user = get_object_or_404(User, pk=uid)
-    response = redirect(get_redir_path(request))
     if check_allow_for_user(request, new_user):
         request.session['_impersonate'] = str(new_user.pk)
         prev_path = request.META.get('HTTP_REFERER')
@@ -43,8 +42,7 @@ def impersonate(request, uid):
             impersonating=new_user,
             request=request
         )
-        response.set_cookie('user', new_user.pk)
-    return response
+    return redirect(get_redir_path(request))
 
 
 def stop_impersonate(request):
