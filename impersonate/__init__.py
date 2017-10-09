@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 default_app_config = 'impersonate.apps.AccountsConfig'
-VERSION = (1, 1, 0, 'final', 0)
+VERSION = (1, 2, 0, 'final', 0)
 
 
 # taken from django-registration
