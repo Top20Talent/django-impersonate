@@ -2,13 +2,9 @@
 import logging
 from django.conf import settings
 from django.contrib import admin
-from django.urls import reverse
-from django.utils.translation import ugettext
-from django.utils.translation import ugettext_lazy as _
-from rest_auth.utils import jwt_encode
 
-from .helpers import User, users_impersonable
-from .models import ImpersonationLog, ImpersonateUser
+from .helpers import User
+from .models import ImpersonationLog
 
 logger = logging.getLogger(__name__)
 
@@ -136,55 +132,4 @@ class ImpersonationLogAdmin(admin.ModelAdmin):
         return friendly_name(obj.impersonating)
 
 
-class ImpersonateUserAdmin(admin.ModelAdmin):
-    icon = '<i class="material-icons">transfer_within_a_station</i>'
-    list_display = ('username', 'is_staff', 'impersonate')
-    search_fields = ('username',)
-    actions = None
-
-    class Media:
-        js = ("admin/impersonate/change_form.js",)
-
-    list_display_links = None
-
-    def get_queryset(self, request):
-        return users_impersonable(request)
-
-    def has_add_permission(self, request):
-        return False
-
-    def impersonate(self, obj):
-        status = None
-        if obj.account:
-            status = obj.account.status
-
-        return """<a href="{}"
-               data-email="{}",
-               data-pk="{}",
-               data-account="{}",
-               data-status="{}",
-               data-phone="{}",
-               data-first_name="{}",
-               data-last_name="{}"
-               data-token="{}"
-               class="btn grey lighten-3">
-               <i class="material-icons left">play_arrow</i>{}</a>""".format(
-                    reverse('impersonate-start', kwargs={'uid': obj.pk}),
-                    obj.email or '',
-                    obj.pk,
-                    obj.account or '',
-                    status or '',
-                    obj.phone or '',
-                    obj.first_name or '',
-                    obj.last_name or '',
-                    jwt_encode(obj),
-                    ugettext('Impersonate'),
-
-                )
-
-    impersonate.allow_tags = True
-    impersonate.short_description = _("Impersonate")
-
-
 admin.site.register(ImpersonationLog, ImpersonationLogAdmin)
-admin.site.register(ImpersonateUser, ImpersonateUserAdmin)
