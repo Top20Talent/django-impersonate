@@ -12,7 +12,7 @@ class ImpersonateMiddleware(MiddlewareMixin):
         request.user.is_impersonate = False
         request.impersonator = None
 
-        if request.user.is_authenticated() and '_impersonate' in request.session:
+        if request.user.is_authenticated and '_impersonate' in request.session:
             new_user_id = request.session['_impersonate']
             if isinstance(new_user_id, User):
                 # Edge case for issue 15
